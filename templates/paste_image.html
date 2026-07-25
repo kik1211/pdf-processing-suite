@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paste Image into PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background: white;
+            padding: 25px;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input[type="file"],
+        input[type="number"],
+        input[type="submit"],
+        input[type="checkbox"] {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-row input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📎 Paste Image into PDF</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label>Upload PDF(s):</label>
+        <input type="file" name="pdfs" accept=".pdf" multiple required>
+
+        <label>Upload Image:</label>
+        <input type="file" name="image" accept="image/*" required>
+
+        <label>Page Number (starting from 1):</label>
+        <input type="number" name="page_number" min="1" value="1" required>
+
+        <label>X Position (in points):</label>
+        <input type="number" name="x" value="50" required>
+
+        <label>Y Position (in points):</label>
+        <input type="number" name="y" value="50" required>
+
+        <label>Image Width (points):</label>
+        <input type="number" name="img_width" value="200">
+
+        <label>Image Height (points):</label>
+        <input type="number" name="img_height" value="150">
+
+        <div class="checkbox-row">
+            <input type="checkbox" name="use_original_size" value="yes" id="original_size">
+            <label for="original_size">Use image's original size</label>
+        </div>
+
+        <input type="submit" value="Paste Image">
+    </form>
+
+</body>
+</html>

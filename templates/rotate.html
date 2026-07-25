@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📄 Rotate PDF Pages</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>🔄 Rotate PDF Pages</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label>Select PDF(s):</label><br>
+        <input type="file" name="pdfs" multiple accept=".pdf" required><br><br>
+
+        <label>Which pages to rotate?</label><br>
+        <select name="rotate_target" required>
+            <option value="portrait">Portrait Pages</option>
+            <option value="landscape">Landscape Pages</option>
+        </select><br><br>
+
+        <label>Rotation Angle (in degrees):</label><br>
+        <input type="number" name="angle" value="90" required><br><br>
+
+        <label>Rotation Direction:</label><br>
+        <select name="direction" required>
+            <option value="clockwise">Clockwise</option>
+            <option value="anticlockwise">Anticlockwise</option>
+        </select><br><br>
+
+        <input type="submit" value="Rotate Pages">
+    </form>
+
+    <p><a href="/">⬅️ Back to Home</a></p>
+</body>
+</html>

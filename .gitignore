@@ -1,0 +1,28 @@
+# Byte-compiled / Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Flask instance & environment
+instance/
+.env
+.flaskenv
+
+# Runtime uploads & temporary generated files (scoped to uploads/)
+uploads/*
+!uploads/.gitkeep
+
+# Runtime thumbnail cache
+static/thumbs/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/

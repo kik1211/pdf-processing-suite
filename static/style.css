@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    background-color: #f7f7f7;
+}
+
+h1 {
+    color: #333;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 15px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #007acc;
+}
+
+a:hover {
+    color: #005a99;
+}
+footer {
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #aaa;
+    font-weight: bold; /* 👈 This line makes all footer text bold */
+}
+ 

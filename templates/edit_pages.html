@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit PDF Pages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f1f1;
+            text-align: center;
+            padding: 40px;
+        }
+
+        form {
+            background-color: white;
+            display: inline-block;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input[type="file"],
+        input[type="number"],
+        input[type="text"],
+        select {
+            margin-top: 6px;
+            margin-bottom: 15px;
+            padding: 6px;
+            width: 80%;
+        }
+
+        .action-fields {
+            display: none;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <script>
+        function showFields() {
+            const action = document.getElementById("action").value;
+            document.querySelectorAll(".action-fields").forEach(div => div.style.display = "none");
+            if (action) {
+                document.getElementById(action + "-fields").style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>🛠️ Edit PDF Pages</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Upload PDF:</label>
+        <input type="file" name="pdf" accept=".pdf" required>
+
+        <label>Select Action:</label>
+        <select name="action" id="action" onchange="showFields()" required>
+            <option value="">-- Choose an action --</option>
+            <option value="remove">🗑️ Remove Pages</option>
+            <option value="cutpaste">✂️ Cut & Paste Page</option>
+            <option value="swap">🔁 Swap Pages</option>
+        </select>
+
+        <!-- Remove Pages -->
+        <div id="remove-fields" class="action-fields">
+            <label>Page Numbers to Remove (e.g., 2,4,6 or 3-5):</label>
+            <input type="text" name="remove_pages" placeholder="Example: 2,4,6 or 3-5">
+        </div>
+
+        <!-- Cut & Paste -->
+        <div id="cutpaste-fields" class="action-fields">
+            <label>Page to Cut:</label>
+            <input type="number" name="cut_page" min="1">
+
+            <label>Insert After Page:</label>
+            <input type="number" name="paste_after_page" min="0">
+        </div>
+
+        <!-- Swap Pages -->
+        <div id="swap-fields" class="action-fields">
+            <label>Page A:</label>
+            <input type="number" name="page_a" min="1">
+
+            <label>Page B:</label>
+            <input type="number" name="page_b" min="1">
+        </div>
+
+        <input type="submit" value="Process PDF">
+    </form>
+
+</body>
+</html>

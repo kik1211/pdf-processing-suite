@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blank Pages</title>
+</head>
+<body>
+    <h1>Add Blank Page(s) to PDF(s)</h1>
+    <form method="POST" enctype="multipart/form-data">
+    <label>Select PDFs:</label><br>
+    <input type="file" name="pdfs" accept=".pdf" multiple required><br><br>
+
+    <label>Where to insert blank page(s)?</label><br>
+    <select name="position" onchange="toggleAfterPage(this.value)">
+        <option value="start">Beginning</option>
+        <option value="end">End</option>
+        <option value="after">After Specific Page</option>
+    </select><br><br>
+
+    <div id="afterPageField" style="display:none;">
+        <label>After Page Number (starting from 1):</label>
+        <input type="number" name="after_page" min="1" value="1"><br><br>
+    </div>
+
+    <label>How many blank pages?</label><br>
+    <input type="number" name="num_blanks" min="1" value="1"><br><br>
+
+    <label>Blank Page Background Color:</label><br>
+    <input type="color" name="bg_color" value="#FFFFFF"><br><br>
+
+    <input type="submit" value="Add Blank Page(s)">
+</form>
+
+
+    <script>
+        function toggleAfterPage(value) {
+            document.getElementById('afterPageField').style.display =
+                value === 'after' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

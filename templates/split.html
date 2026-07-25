@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Split PDF Pages</title>
+</head>
+<body>
+    <h2>📄 Split PDF (Split the pdf to individual pages.You can upload Multiple PDFs at a time)</h2>
+    <form action="/split" method="post" enctype="multipart/form-data">
+        <input type="file" name="pdfs" accept=".pdf" multiple required><br><br>
+        <input type="submit" value="Split PDFs">
+    </form>
+    <p><a href="/">← Back to Home</a></p>
+</body>
+</html>
