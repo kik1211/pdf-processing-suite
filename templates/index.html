@@ -2,117 +2,1063 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>I HATE PDF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I HATE PDF — Fast, Free & Local Open-Source PDF Suite</title>
+    <meta name="description" content="A lightweight, privacy-focused open-source local PDF processing suite. Invert, merge, split, compress, watermark, rotate, and edit PDFs without uploading files to external servers.">
+    
+    <!-- Typography & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
+    
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --primary-border: #bfdbfe;
+            
+            --text-dark: #0f172a;
+            --text-muted: #334155;
+            --text-light: #64748b;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-alt: #f1f5f9;
+            
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-pill: 9999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #f7f7f7;
-            padding: 30px;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
-        h1 {
-            font-size: 2.5em;
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        .tools {
-            margin-top: 30px;
+
+        /* Focus Outline for Accessibility */
+        a:focus-visible, button:focus-visible, input:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
         }
-        .tools p {
-            font-size: 1.2em;
-            margin: 12px 0;
+
+        /* Navigation Header */
+        header.site-header {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .description {
-            font-size: 1.1em;
-            color: #555;
-            max-width: 600px;
-            margin: 20px auto;
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
         }
-        footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #aaa;
-        }
-        .btn {
-            padding: 10px 20px;
-            background: #007BFF;
-            color: white;
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             text-decoration: none;
-            border-radius: 8px;
-            margin: 10px;
-            display: inline-block;
+            color: var(--text-dark);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+            cursor: pointer;
+            user-select: none;
         }
-        .btn:hover {
-            background: #0056b3;
+
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Compact Hero Section */
+        .hero-compact {
+            padding: 40px 0 24px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, #eff6ff 0%, var(--bg-body) 70%);
+        }
+
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .stats-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .stats-strip span strong {
+            color: var(--primary);
+        }
+
+        /* Tools Section (TOOLS FIRST) */
+        .tools-section {
+            padding: 24px 0 40px;
+        }
+
+        .search-box-wrapper {
+            max-width: 540px;
+            margin: 0 auto 28px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-pill);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: var(--text-light);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-border);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tool-header {
+            margin-bottom: 12px;
+        }
+
+        .tool-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .tool-icon-wrapper svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+        }
+
+        .tool-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .tool-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+
+        .use-case-tag {
+            font-size: 0.78rem;
+            padding: 6px 10px;
+            background: var(--bg-body);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .use-case-tag strong {
+            color: var(--text-dark);
+        }
+
+        .tool-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: var(--bg-body);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .tool-card:hover .tool-btn {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Compact Interactive Tabbed Box (Story, Comparison, Features) */
+        .tab-section {
+            padding: 40px 0;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .tab-btn {
+            padding: 8px 18px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-border);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tab 1: Story */
+        .story-box p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .quote-callout {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-style: italic;
+            color: var(--primary-hover);
+        }
+
+        /* Tab 2: Comparison Matrix */
+        .table-responsive {
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+        table.comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        table.comparison-table th, table.comparison-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table.comparison-table th {
+            background-color: var(--bg-body);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        table.comparison-table th:nth-child(2) {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        table.comparison-table td:nth-child(2) {
+            font-weight: 600;
+            color: #15803d;
+            background-color: rgba(239, 246, 255, 0.4);
+        }
+
+        /* Tab 3: Features Grid */
+        .features-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .mini-feature-card {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+        }
+
+        .mini-feature-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .mini-feature-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* 2-Column Section: Roadmap & Tech Stack */
+        .bottom-grid-section {
+            padding: 40px 0;
+        }
+
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .sub-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        /* Roadmap Items */
+        .roadmap-mini-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .roadmap-item {
+            background: var(--bg-card);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pill {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: var(--radius-pill);
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
+        }
+
+        /* Tech Stack List */
+        .tech-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .tech-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+        }
+
+        .tech-item-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .tech-item-desc {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Brainrot Banner & Easter Egg Overlay */
+        .brainrot-banner {
+            display: none;
+            background: #ef4444;
+            color: white;
+            text-align: center;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        body.brainrot-mode .brainrot-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        body.brainrot-mode .brand-logo span {
+            color: #ef4444 !important;
+        }
+
+        body.brainrot-mode .tool-name {
+            color: #b91c1c;
+        }
+
+        /* Footer */
+        footer.site-footer {
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            padding: 28px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .easter-egg-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .two-col-grid {
+                grid-template-columns: 1fr;
+            }
+            .roadmap-mini-list, .tech-mini-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>🧰I HATE PDF💔</h1>
-
-    <div class="description">
-        I built "I HATE PDF" out of pure sigma rage 💀. I'm a sigma student who’s done glazing over trash files and built a toolkit with SKIBIDI RIZZ FEATURES. Womp womp to bad PDFs. Free for everyone.
+    <!-- Future Brainrot Mode -->
+    <div id="brainrotBanner" class="brainrot-banner">
+        <span>🔥 BRAINROT MODE ACTIVATED! (Skibidi PDF Suite 💀)</span>
+        <button onclick="toggleBrainrotMode()" style="background:white; color:#ef4444; border:none; padding:4px 10px; border-radius:4px; font-weight:700; cursor:pointer;">Exit Brainrot Mode</button>
     </div>
 
-    <div class="tools">
-        <p><a class="btn" href="/invert">🌒 Invert Colors</a></p>
-        <p><a class="btn" href="/merge">🔁 Merge PDFs</a></p>
-        <p><a class="btn" href="/split">✂️ Split PDF</a></p>
-        <p><a class="btn" href="/compress">📉 Compress PDF</a></p>
-        <p><a class="btn" href="/watermark">💧 Watermark PDF</a></p>
-        <p><a class="btn" href="/rotate">🔄 Rotate Pages</a></p>
-	<p><a class="btn" href="/add_blank">➕ Add Blank Page</a></p>
-	<p><a class="btn" href="/paste_image">📉 Paste image</a></p>
-	<p><a class="btn" href="/edit_pages"> Edit pages</a></p>
-	<p><a class="btn" href="/batch_invert"> invert colour of the file</a></p>
+    <!-- Navigation Header -->
+    <header class="site-header" role="banner">
+        <div class="container">
+            <div class="nav-inner">
+                <a class="brand-logo" id="brandLogo" ondblclick="toggleBrainrotMode()" title="Double-click for a secret!">
+                    <div class="brand-icon">📄</div>
+                    <span id="brandName">I HATE PDF</span>
+                </a>
+                <nav role="navigation" aria-label="Main Navigation">
+                    <ul class="nav-links">
+                        <li><a href="#tools">Tools</a></li>
+                        <li><a href="#info">Story &amp; Specs</a></li>
+                        <li><a href="#details">Roadmap</a></li>
+                        <li><a href="https://github.com/kik1211/pdf-processing-suite" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    </div>
+    <main role="main">
+        <!-- Compact Hero Section -->
+        <section class="hero-compact">
+            <div class="container">
+                <div class="badge-tag">
+                    <span>⚡</span> 100% Free &amp; Open-Source Local PDF Suite
+                </div>
+                <h1 class="hero-title" id="heroTitle">I HATE <span>PDF</span></h1>
+                <p class="hero-subtitle" id="heroSubtitle">Because PDFs shouldn't make you suffer.</p>
+                
+                <div class="stats-strip">
+                    <span><strong>10+</strong> PDF Tools</span> &bull;
+                    <span><strong>100%</strong> Local Processing</span> &bull;
+                    <span><strong>0</strong> Subscriptions</span> &bull;
+                    <span><strong>&infin;</strong> Files Processed</span>
+                </div>
+            </div>
+        </section>
 
-    <hr style="margin: 40px auto; width: 60%;">
+        <!-- Tools Section (TOOLS FIRST) -->
+        <section id="tools" class="tools-section">
+            <div class="container">
+                <!-- Instant Search Input -->
+                <div class="search-box-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="toolSearch" class="search-input" placeholder="Search tools (e.g. merge, invert, split, watermark, compress...)" onkeyup="filterTools()" aria-label="Search PDF Tools">
+                </div>
 
-    <div class="description">
-        <strong>How to Use:</strong><br>
-        ➤ Select a tool <br>
-        ➤ Upload your PDF(s) <br>
-        ➤ Choose options (like font, quality, position)<br>
-        ➤ Get your result instantly! 🚀
-    </div>
+                <div class="tools-grid" id="toolsGrid">
+                    <!-- Tool 1: Invert Colors -->
+                    <div class="tool-card" data-keywords="invert color dark mode night contrast">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"></path></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="🌒 SKIBIDI COLOR INVERTER 💀">Invert Colors</h3>
+                            <p class="tool-desc">Invert page colors to create a high-contrast dark mode for reading.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Late-night reading &amp; reducing eye strain.</div>
+                        </div>
+                        <a href="/invert" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
 
-    <div class="new-feature">
-        🔄 Newest Feature: Our Rotate PDF option autodetects the page orientation and lets you to rotate a specific type to a specific angle!.
-    </div>
+                    <!-- Tool 2: Batch Color Invert -->
+                    <div class="tool-card" data-keywords="batch invert bulk colors dark mode folder">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="7" width="16" height="14" rx="2" ry="2"></rect><path d="M6 3h14a2 2 0 0 1 2 2v12"></path></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="📦 BATCH INVERT GLAZE 🦍">Batch Color Invert</h3>
+                            <p class="tool-desc">Bulk invert colors across multiple PDF documents simultaneously.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Processing whole folders of slides or eBooks.</div>
+                        </div>
+                        <a href="/batch_invert" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
 
-    <footer>
-        "If you try gatekeeping this website without sharing with your friends, then the consequences might be:"<br><br>
+                    <!-- Tool 3: Merge PDFs -->
+                    <div class="tool-card" data-keywords="merge combine join append pdfs">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="🔁 SIGMA PDF MERGER 🦍">Merge PDFs</h3>
+                            <p class="tool-desc">Combine multiple independent PDF files into a single continuous document.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Combining reports, receipts, or multi-part files.</div>
+                        </div>
+                        <a href="/merge" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
 
-        Every PDF you touch gets a 'sigma male certified' watermark 📄🦍<br>
-        Wake up to Skibidi Toilet as your permanent screensaver 💀🚽<br>
-        Your search bar starts finishing sentences wrong 🔍<br>
-        Your PDFs develop trust issues and refuse to open 🧠📄<br>
-        Every traffic light you approach turns red instantly 🚦🙅<br>
-        Your AirPods permanently connect to neighbour's TV 📺<br>
-        Laptop fan goes jet-engine mode during Zoom interviews ✈️🎤<br>
-        Charger cable works only at 69° 🔌💀<br>
-        All your texts autocorrect "LOL" to "I wear socks to bed" 🤡🧦<br>
-        Microwave beeps demonically at 3AM every night 👹🔔<br>
-        Left shoe always feels slightly damper than the right 👟💧<br>
-        Every time you look at sunshine, you'll see Lebron 🏀☀️<br>
-        Keyboard backlight only works when you don't need it ⌨️🌑<br>
-        Spotify plays Skibidi Toilet remixes on speaker during workouts 🎧💀<br>
-        Printer adds "this document cringe" footer to everything 🖨️📝<br>
-        Your bed develops one mysteriously shorter leg every night 🛏️📉<br>
-        Your GitHub commits auto-message "fixed my daddy issues" 💻👨🍼<br>
-        Your peeing dream will come true in bed 💦🛏️<br>
-        Coffee maker only brews at 4:20 AM ☕👀<br>
-        Phone notifications play "gyatt" sound effect in public 📢🍑<br>
-        Ctrl+S secretly adds "luh calm fit" to all filenames 💾😌<br>
-        Your VS Code theme resets to 'light mode' every time you blink 💡<br><br>
+                    <!-- Tool 4: Split PDF -->
+                    <div class="tool-card" data-keywords="split extract separate cut pages zip">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="✂️ PAGE SPLITTER WOMP ⚡">Split PDF</h3>
+                            <p class="tool-desc">Separate pages of a PDF into individual files downloaded as ZIP.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Extracting specific pages or breaking up large files.</div>
+                        </div>
+                        <a href="/split" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
 
-        <strong>Final Warning:</strong><br>
-        "If you think you can escape, Nah, I’d win."<br><br>
+                    <!-- Tool 5: Compress PDF -->
+                    <div class="tool-card" data-keywords="compress reduce size shrink image dpi quality">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="📉 COMPRESSOR RIZZ 💀">Compress PDF</h3>
+                            <p class="tool-desc">Reduce overall PDF file size by optimizing embedded image resolutions.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Email attachments &amp; upload file-size limits.</div>
+                        </div>
+                        <a href="/compress" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
 
-        Version 1.0 | Built by a Brainrot 🧠
+                    <!-- Tool 6: Watermark PDF -->
+                    <div class="tool-card" data-keywords="watermark text stamp overlay brand copyright">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="💧 WATERMARK STAMPER 👑">Watermark PDF</h3>
+                            <p class="tool-desc">Overlay custom text watermarks with position, font size, and rotation.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Document branding, draft labeling, &amp; copyright.</div>
+                        </div>
+                        <a href="/watermark" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
+
+                    <!-- Tool 7: Rotate Pages -->
+                    <div class="tool-card" data-keywords="rotate orientation portrait landscape angle direction">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="🔄 ROTATE FLIPPER 💫">Rotate Pages</h3>
+                            <p class="tool-desc">Autodetect or manually rotate landscape/portrait pages to desired angles.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Fixing scanned documents &amp; misaligned pages.</div>
+                        </div>
+                        <a href="/rotate" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
+
+                    <!-- Tool 8: Add Blank Pages -->
+                    <div class="tool-card" data-keywords="add blank insert page background padding notes">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="➕ BLANK PAGE INSERTER 📄">Add Blank Pages</h3>
+                            <p class="tool-desc">Insert blank pages with custom background colors at specific positions.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Adding note pages, section dividers, or print padding.</div>
+                        </div>
+                        <a href="/add_blank" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
+
+                    <!-- Tool 9: Paste Image -->
+                    <div class="tool-card" data-keywords="paste image stamp signature logo coordinates png jpg">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="🖼️ IMAGE STAMPER RIZZ 🎨">Paste Image</h3>
+                            <p class="tool-desc">Stamp external images onto PDF pages with custom coordinates &amp; dimensions.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Inserting signatures, logos, or diagram overlays.</div>
+                        </div>
+                        <a href="/paste_image" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
+
+                    <!-- Tool 10: Edit Pages -->
+                    <div class="tool-card" data-keywords="edit delete page swap cut paste reorder order">
+                        <div class="tool-header">
+                            <div class="tool-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </div>
+                            <h3 class="tool-name" data-brainrot="✏️ PAGE REORDERING BOSS ⚡">Edit Pages</h3>
+                            <p class="tool-desc">Delete specific pages, swap page positions, or cut and paste pages easily.</p>
+                            <div class="use-case-tag"><strong>Best for:</strong> Rearranging page order &amp; stripping unwanted pages.</div>
+                        </div>
+                        <a href="/edit_pages" class="tool-btn">Open Tool &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compact Interactive Tabbed Section (Story, Comparison, Features) -->
+        <section id="info" class="tab-section">
+            <div class="container">
+                <div class="tab-container">
+                    <div class="tab-nav">
+                        <button class="tab-btn active" onclick="switchTab('story', this)">Why I Built This</button>
+                        <button class="tab-btn" onclick="switchTab('comparison', this)">Comparison Matrix</button>
+                        <button class="tab-btn" onclick="switchTab('features', this)">Key Features</button>
+                    </div>
+
+                    <!-- Tab 1: Story -->
+                    <div id="tab-story" class="tab-content active">
+                        <div class="story-box">
+                            <p>
+                                Existing online PDF tools force you to jump between multiple websites, restrict batch operations, demand paid subscriptions for basic utilities, or risk your privacy by uploading confidential documents to remote servers.
+                            </p>
+                            <p>
+                                "I HATE PDF" was built to bring all essential PDF utilities together under a single, fast, local application where your files stay completely on your computer.
+                            </p>
+                            <div class="quote-callout">
+                                &ldquo;I was tired of using five different websites just to perform five different PDF operations.&rdquo;
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Comparison Matrix -->
+                    <div id="tab-comparison" class="tab-content">
+                        <div class="table-responsive">
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>I HATE PDF</th>
+                                        <th>Typical Online Tools</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Local Processing</td>
+                                        <td>100% Local (On your PC)</td>
+                                        <td>Varies (Often cloud-based)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Privacy</td>
+                                        <td>Complete Privacy (No uploads)</td>
+                                        <td>May store files on remote servers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Batch Color Inversion</td>
+                                        <td>Supported out of the box</td>
+                                        <td>Rarely available</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Blank Page Insertion</td>
+                                        <td>Supported with custom colors</td>
+                                        <td>May require premium tier</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Precise Image Placement</td>
+                                        <td>Supported (Exact coordinates)</td>
+                                        <td>Varies by platform</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Page Reordering</td>
+                                        <td>Supported (Cut, Swap, Delete)</td>
+                                        <td>Often requires account registration</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Multiple Utilities</td>
+                                        <td>Integrated All-in-One Suite</td>
+                                        <td>Often separate websites</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subscriptions</td>
+                                        <td>100% Free &amp; Open Source</td>
+                                        <td>Often subscription-based or capped</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Features -->
+                    <div id="tab-features" class="tab-content">
+                        <div class="features-mini-grid">
+                            <div class="mini-feature-card">
+                                <h4>🔒 100% Local Processing</h4>
+                                <p>No files leave your computer or touch third-party servers.</p>
+                            </div>
+                            <div class="mini-feature-card">
+                                <h4>🌓 Batch Color Inversion</h4>
+                                <p>High-contrast dark-mode conversion across multi-page files.</p>
+                            </div>
+                            <div class="mini-feature-card">
+                                <h4>🖼️ Image Stamping</h4>
+                                <p>Exact coordinate and scaling placement for images and signatures.</p>
+                            </div>
+                            <div class="mini-feature-card">
+                                <h4>➕ Blank Page Insertion</h4>
+                                <p>Add colored or white blank pages at custom positions.</p>
+                            </div>
+                            <div class="mini-feature-card">
+                                <h4>✏️ Full Page Editing</h4>
+                                <p>Cut, swap, and delete pages with total document layout control.</p>
+                            </div>
+                            <div class="mini-feature-card">
+                                <h4>⚡ All-in-One Local Suite</h4>
+                                <p>Merge, split, compress, watermark, rotate, and manipulate locally.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2-Column Section: Roadmap & Tech Stack -->
+        <section id="details" class="bottom-grid-section">
+            <div class="container">
+                <div class="two-col-grid">
+                    <!-- Left Column: Roadmap -->
+                    <div>
+                        <h3 class="sub-header">Planned Roadmap</h3>
+                        <div class="roadmap-mini-list">
+                            <div class="roadmap-item">
+                                <span>OCR Text Recognition</span>
+                                <span class="status-pill">Planned</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span>Password Protection</span>
+                                <span class="status-pill">Planned</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span>Digital Signatures</span>
+                                <span class="status-pill">Planned</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span>Metadata Editor</span>
+                                <span class="status-pill">Planned</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span>PDF Forms Filler</span>
+                                <span class="status-pill">Planned</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span>Cloud Sync (Optional)</span>
+                                <span class="status-pill">Planned</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Tech Stack -->
+                    <div>
+                        <h3 class="sub-header">Technology Stack</h3>
+                        <div class="tech-mini-grid">
+                            <div class="tech-item">
+                                <div class="tech-item-name">🐍 Python</div>
+                                <div class="tech-item-desc">Core backend runtime &amp; scripting</div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-item-name">🌶️ Flask</div>
+                                <div class="tech-item-desc">Lightweight WSGI web framework</div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-item-name">⚡ PyMuPDF</div>
+                                <div class="tech-item-desc">Fast PDF rendering &amp; manipulation</div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-item-name">📄 PyPDF2</div>
+                                <div class="tech-item-desc">Structure &amp; page merging</div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-item-name">🖼️ Pillow</div>
+                                <div class="tech-item-desc">Image processing &amp; raster drawing</div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-item-name">🔢 NumPy</div>
+                                <div class="tech-item-desc">Array &amp; color matrix math</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <strong>I HATE PDF</strong> &bull; Version 0.1.0 &bull; MIT License
+                </div>
+                <div>
+                    Built by <strong>Kiruthik R S</strong>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/kik1211/pdf-processing-suite" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+                    &bull;
+                    <button class="easter-egg-btn" onclick="toggleBrainrotMode()">🔥 Secret Mode</button>
+                </div>
+                <div>
+                    Copyright &copy; 2026 Kiruthik R S
+                </div>
+            </div>
+        </div>
     </footer>
 
+    <!-- Interactive Scripts -->
+    <script>
+        // Tab Switcher Logic
+        function switchTab(tabName, btnElement) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        // Real-Time Tool Search / Filter
+        function filterTools() {
+            const query = document.getElementById('toolSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const keywords = card.getAttribute('data-keywords') || '';
+                if (text.includes(query) || keywords.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Secret Brainrot Mode Toggle
+        function toggleBrainrotMode() {
+            document.body.classList.toggle('brainrot-mode');
+            const isBrainrot = document.body.classList.contains('brainrot-mode');
+            
+            const brandName = document.getElementById('brandName');
+            const heroTitle = document.getElementById('heroTitle');
+            const heroSubtitle = document.getElementById('heroSubtitle');
+
+            if (isBrainrot) {
+                brandName.textContent = "SKIBIDI PDF 💀";
+                heroTitle.innerHTML = "I HATE <span>PDF</span> 🦍";
+                heroSubtitle.textContent = "Glazing over PDFs with SKIBIDI RIZZ features. Womp Womp.";
+                document.querySelectorAll('.tool-name').forEach(el => {
+                    if (el.getAttribute('data-brainrot')) {
+                        el.setAttribute('data-original', el.textContent);
+                        el.textContent = el.getAttribute('data-brainrot');
+                    }
+                });
+            } else {
+                brandName.textContent = "I HATE PDF";
+                heroTitle.innerHTML = "I HATE <span>PDF</span>";
+                heroSubtitle.textContent = "Because PDFs shouldn't make you suffer.";
+                document.querySelectorAll('.tool-name').forEach(el => {
+                    if (el.getAttribute('data-original')) {
+                        el.textContent = el.getAttribute('data-original');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
