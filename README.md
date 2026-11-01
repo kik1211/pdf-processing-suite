@@ -1,68 +1,101 @@
-# I HATE PDF
+# PDF Processing Suite
 
-> **Because PDFs shouldn't make you suffer.**
-
-A lightweight, fully local web application that combines 10 essential PDF utilities into one seamless interface. No subscriptions, no cloud uploads, and no switching between five different websites just to manage your documents.
+A privacy-focused, fully local web application and utility suite providing essential PDF document manipulation, page reordering, and batch color inversion in a unified interface.
 
 ---
 
-## Why I Built This
-I was tired of dealing with online PDF tools that impose arbitrary file size limits, require premium subscriptions for basic tasks, and force you to upload sensitive documents to remote servers. **I HATE PDF** runs 100% locally on your machine, ensuring complete privacy and zero friction.
+## Overview
 
-## Features
-* **100% Local Processing:** Your files never leave your computer.
-* **Batch Color Inversion:** Perfect for reading scanned documents or textbooks in dark mode without eye strain.
-* **Page Management:** Merge, split, rotate, and rearrange pages effortlessly.
-* **Image & Watermark Tools:** Precisely stamp images or add watermarks to your PDFs.
-* **Compression:** Reduce file sizes for easy sharing.
-* **Blank Page Insertion:** Add space exactly where you need it.
+Most web-based PDF utility services enforce file size limits, rate constraints, subscription tiers, or require uploading sensitive documents to external cloud infrastructure. 
+
+**PDF Processing Suite** executes all operations directly on the local host using Python and PyMuPDF (`fitz`), ensuring zero data egress, sub-second page manipulation, and complete privacy for scanned notes, textbooks, and enterprise documents.
+
+### Key Capabilities
+
+- **100% Local Processing:** Files are processed in memory and local temporary storage with zero remote telemetry or external API calls.
+- **Batch Color Inversion:** Inverts document page color profiles via raster manipulation, creating dark-mode reading formats for scanned documents and slide decks without loss of clarity.
+- **Page Management:** Reorder, merge, split, and rotate individual or batch pages through an interactive web UI.
+- **Stamping & Watermarking:** Stamp custom images, transparent overlay watermarks, or annotations at arbitrary page coordinates.
+- **Document Compression:** Optimize embedded streams and downsample imagery to reduce file footprints for distribution.
+- **Blank Page Insertion:** Insert standardized blank spacer pages at designated index offsets.
+
+---
+
+## Technical Architecture
+
+The application is structured into a Flask web layer and a set of underlying PDF manipulation engines:
+
+```
+[ Browser / Client ] ──( HTTP POST / Multipart )──> [ Flask Routes in app.py ]
+                                                            │
+                                                            ▼
+                                                 [ PyMuPDF / PyPDF2 Engines ]
+                                                            │
+                                                            ▼
+[ Browser / Client ] <──( Binary File Stream )──── [ Temporary Output Buffer ]
+```
+
+Detailed architectural layouts, directory structures, and data flow specifications are available in the [Architecture Guide](docs/ARCHITECTURE.md).
+
+---
 
 ## Technology Stack
-* **Backend:** Python, Flask
-* **PDF Processing:** PyMuPDF (`fitz`), PyPDF2
-* **Image Processing:** Pillow, NumPy
-* **Frontend:** HTML5, CSS3, Vanilla JS
+
+- **Backend Framework:** Python 3.10+, Flask
+- **Document Engine:** PyMuPDF (`fitz`), PyPDF2
+- **Image Manipulation:** Pillow (PIL), NumPy
+- **Frontend Layer:** Semantic HTML5, Vanilla CSS, Jinja2 Templates, JavaScript (ES6)
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
-* Python 3.10 or higher
-* Git
+
+- Python 3.10 or higher
+- Git
 
 ### Installation
-1. **Clone the repository:**
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/kik1211/pdf-processing-suite.git
    cd pdf-processing-suite
    ```
 
-2. **Install dependencies:**
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv .venv
+   # Windows:
+   .venv\Scripts\activate
+   # Linux/macOS:
+   source .venv/bin/activate
+   ```
+
+3. Install required packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the application:**
-   Simply double-click the `run_app.bat` file (on Windows), or run:
+4. Launch the application:
    ```bash
    python app.py
    ```
+   *(On Windows, you can also launch directly by executing `run_app.bat`)*
 
-4. **Open in your browser:**
-   Navigate to `http://127.0.0.1:5000` to start using the tools!
+5. Open your web browser and navigate to:
+   ```
+   http://127.0.0.1:5000
+   ```
 
 ---
 
-## Future Roadmap
-- [ ] OCR Text Recognition
-- [ ] Password Protection & Encryption
-- [ ] Digital Signatures
-- [ ] PDF Metadata Editor
+## Development & Release History
+
+See [docs/CHANGELOG.md](docs/CHANGELOG.md) for version release notes and recent interface enhancements.
 
 ---
 
 ## License
-This project is licensed under the **MIT License**. See the [`LICENSE`](LICENSE) file for details.
 
-*Built by [Kiruthik R S](https://github.com/kik1211).*
+This project is licensed under the [MIT License](LICENSE).
