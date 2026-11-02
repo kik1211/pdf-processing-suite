@@ -1,22 +1,22 @@
 # PDF Processing Suite
 
-A privacy-focused, fully local web application and utility suite providing essential PDF document manipulation, page reordering, and batch color inversion in a unified interface.
+A Python and Flask web application providing essential PDF document manipulation, page reordering, and batch color inversion in a unified interface.
 
 ---
 
 ## Overview
 
-Most web-based PDF utility services enforce file size limits, rate constraints, subscription tiers, or require uploading sensitive documents to external cloud infrastructure. 
+Unlike public third-party services with subscription paywalls and external file upload requirements, **PDF Processing Suite** runs directly on your own host environment.
 
-**PDF Processing Suite** executes all operations directly on the local host using Python and PyMuPDF (`fitz`), ensuring zero data egress, sub-second page manipulation, and complete privacy for scanned notes, textbooks, and enterprise documents.
+All processing is executed on the machine hosting the Flask application. When run locally (e.g., on `localhost` or `127.0.0.1`), files remain on your local disk within the `uploads/` directory without third-party data transmission. If deployed to a remote server, uploaded files are processed and temporarily stored on that remote host.
 
 ### Key Capabilities
 
-- **100% Local Processing:** Files are processed in memory and local temporary storage with zero remote telemetry or external API calls.
-- **Batch Color Inversion:** Inverts document page color profiles via raster manipulation, creating dark-mode reading formats for scanned documents and slide decks without loss of clarity.
+- **Host-Based Execution:** Uploaded files are written to the host's `uploads/` directory and processed locally via PyMuPDF (`fitz`), PyPDF2, and Pillow without external cloud API dependencies.
+- **Color Inversion (Dark Mode):** Inverts document page color profiles via raster manipulation to create dark-background reading formats for scanned notes and slides. *(Note: Pages are rasterized into bitmaps, so selectable text and vector layers are converted to images).*
 - **Page Management:** Reorder, merge, split, and rotate individual or batch pages through an interactive web UI.
-- **Stamping & Watermarking:** Stamp custom images, transparent overlay watermarks, or annotations at arbitrary page coordinates.
-- **Document Compression:** Optimize embedded streams and downsample imagery to reduce file footprints for distribution.
+- **Stamping & Watermarking:** Stamp custom images, transparent overlay watermarks, or text annotations at designated page coordinates.
+- **Lossy Document Compression:** Reduces PDF file sizes by rasterizing pages at 100 DPI and re-encoding them as JPEG images at quality 50.
 - **Blank Page Insertion:** Insert standardized blank spacer pages at designated index offsets.
 
 ---
@@ -30,9 +30,10 @@ The application is structured into a Flask web layer and a set of underlying PDF
                                                             │
                                                             ▼
                                                  [ PyMuPDF / PyPDF2 Engines ]
+                                                 [ Local uploads/ Storage   ]
                                                             │
                                                             ▼
-[ Browser / Client ] <──( Binary File Stream )──── [ Temporary Output Buffer ]
+[ Browser / Client ] <──( Binary File Stream )──── [ Download / ZIP Delivery ]
 ```
 
 Detailed architectural layouts, directory structures, and data flow specifications are available in the [Architecture Guide](docs/ARCHITECTURE.md).
