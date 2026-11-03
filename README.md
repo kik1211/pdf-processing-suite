@@ -42,7 +42,7 @@ Detailed architectural layouts, directory structures, and data flow specificatio
 
 ## Technology Stack
 
-- **Backend Framework:** Python 3.10+, Flask
+- **Backend Framework:** Python 3.11+, Flask
 - **Document Engine:** PyMuPDF (`fitz`), PyPDF2
 - **Image Manipulation:** Pillow (PIL), NumPy
 - **Frontend Layer:** Semantic HTML5, Vanilla CSS, Jinja2 Templates, JavaScript (ES6)
@@ -53,7 +53,7 @@ Detailed architectural layouts, directory structures, and data flow specificatio
 
 ### Prerequisites
 
-- Python 3.10 or higher
+- Python 3.11 or higher
 - Git
 
 ### Installation
