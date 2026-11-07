@@ -1,5 +1,7 @@
 # PDF Processing Suite
 
+[![CI Pipeline](https://github.com/kik1211/pdf-processing-suite/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kik1211/pdf-processing-suite/actions/workflows/ci.yml)
+
 A Python and Flask web application providing essential PDF document manipulation, page reordering, and batch color inversion in a unified interface.
 
 ---
@@ -18,6 +20,21 @@ All processing is executed on the machine hosting the Flask application. When ru
 - **Stamping & Watermarking:** Stamp custom images, transparent overlay watermarks, or text annotations at designated page coordinates.
 - **Lossy Document Compression:** Reduces PDF file sizes by rasterizing pages at 100 DPI and re-encoding them as JPEG images at quality 50.
 - **Blank Page Insertion:** Insert standardized blank spacer pages at designated index offsets.
+
+---
+
+## User Interface
+
+| Tools-First Homepage | Dark Mode Color Inversion |
+| :---: | :---: |
+| ![PDF Suite Homepage](screenshots/homepage.png) | ![Dark Mode Inverter Interface](screenshots/dark_mode_inverter.png) |
+| *Unified navigation dashboard with direct access to document tools* | *High-contrast raster inversion for dark-mode document reading* |
+
+<p align="center">
+  <img src="screenshots/edit_pages.png" alt="Visual Page Management Interface" width="720">
+  <br>
+  <em>Interactive visual page reordering, extraction, and deletion interface</em>
+</p>
 
 ---
 
